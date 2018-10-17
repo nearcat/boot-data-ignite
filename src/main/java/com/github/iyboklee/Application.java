@@ -26,8 +26,13 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         fillRepository();
 
+        log.info(".... Find user by id");
+        findOne(2L);
+
+        log.info(".... Find user by name");
         findUser("Lee");
 
+        log.info(".... Find all user");
         findAll();
 
         System.exit(SpringApplication.exit(context));
@@ -40,6 +45,12 @@ public class Application implements CommandLineRunner {
         users.put(3L, new User(3L, "Park", 3000));
 
         userRepository.save(users);
+    }
+
+    private void findOne(Long userId) {
+        User user = userRepository.findOne(userId);
+
+        log.info("Find user by `{}`: {}", userId, user);
     }
 
     private void findUser(String name) {
